@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gym2.dao.RelationMapper">
+    <resultMap id="BaseResultMap" type="com.example.gym2.model.Relation">
+        <id column="fid" jdbcType="VARCHAR" property="fid" />
+        <result column="fuserId" jdbcType="VARCHAR" property="userId" />
+        <result column="fcourseId" jdbcType="VARCHAR" property="courseId" />
+        <result column="startDate" jdbcType="VARCHAR" property="startDat" />
+        <result column="endDate" jdbcType="VARCHAR" property="endDate" />
+        <result column="collid" jdbcType="VARCHAR" property="collid" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        fid, fuserId, fcourseId, startDate, endDate, collid
+    </sql>
+</mapper>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gym2.dao.UserMapper">
+    <resultMap id="BaseResultMap" type="com.example.gym2.model.User">
+        <id column="fid" jdbcType="VARCHAR" property="fid" />
+        <result column="adminid" jdbcType="VARCHAR" property="adminId" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="sex" jdbcType="VARCHAR" property="sex" />
+        <result column="yearold" jdbcType="VARCHAR" property="yearold" />
+        <result column="weight" jdbcType="INTEGER" property="weight" />
+        <result column="height" jdbcType="VARCHAR" property="height" />
+        <result column="phone" jdbcType="VARCHAR" property="phone" />
+        <result column="state" jdbcType="VARCHAR" property="state" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        fid, adminId, name, sex, yearold, weight, height, phone, state
+    </sql>
+    <select id="selectUserIdAndToken" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from
+          fuser
+        where 1 = 1
+        <if test="userId != null and userId != ''">
+          and adminid = userId
+        </if>
+        <if test="token != null and token != ''">
+            and fid = token
+        </if>
+    </select>
+    <select id="selectUserByAdmin" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from
+        fuser
+        where 1 = 1
+        <if test="userId != null and userId != ''">
+            and adminid = userId
+        </if>
+        <if test="token != null and token != ''">
+            and fid = token
+        </if>
+    </select>
+    <select id="selectUIdIn" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from
+        fuser
+        where 1 = 1
+        and fid in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    <select id="selectUserByNameAndAdminId" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from
+        fuser u
+        where 1 = 1
+        and u.name = #{userName, jdbcType=VARCHAR}
+        and u.adminid = #{adminId, jdbcType=VARCHAR}
+    </select>
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.gym2.dao.CourseMapper">
+    <resultMap id="BaseResultMap" type="com.example.gym2.model.Course">
+        <id column="fid" jdbcType="VARCHAR" property="fid" />
+        <result column="collegeId" jdbcType="VARCHAR" property="collegeId" />
+        <result column="cname" jdbcType="VARCHAR" property="name" />
+        <result column="startDate" jdbcType="VARCHAR" property="startDate" />
+        <result column="endDate" jdbcType="VARCHAR" property="endDate" />
+        <result column="state" jdbcType="VARCHAR" property="state" />
+        <result column="adminid" jdbcType="VARCHAR" property="adminid" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        fid, collegeId, cname, startDate, endDate, state, adminid
+    </sql>
+    <select id="selectCourse" resultType="com.example.gym2.dto.CourseDTO">
+        select fid ,collegeId, cname, startDate, endDate, state, adminid
+        <if test="state != null and state != ''">
+            ,u.fid ufid, coll.fid collid,uc.startdate,uc.enddate,uc.fid ucfid
+        </if>
+        from fcourse
+        <if test="state != null and state != ''">
+            INNER JOIN ucrelation uc ON co.fid=uc.fcourseId
+            INNER JOIN fuser u on u.fid=uc.fuserId
+            INNER JOIN college coll on coll.fid = uc.collid
+        </if>
+        <if test="userId != null and userId != ''">
+             and u.fid = #{userId,jdbcType=VARCHAR} ;
+        </if>
+        and co.adminid = #{adminid,jdbcType=VARCHAR}
+    </select>
+</mapper>
