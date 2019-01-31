@@ -41,14 +41,14 @@ public class UrlInterceptor implements HandlerInterceptor {
                 }
             }
         }
-//        if(redisDao.exists(id)){
-//            String name = redisDao.get(id);
-//            redisDao.setExpire(id, name, true, 60L);
+        if(redisDao.exists(id)){
+            String name = redisDao.get(id);
+            redisDao.setExpire(id, name, true, 60L);
             return true;
-//        }else{
-//            response.sendRedirect(request.getContextPath() + "/err");
-//            return false;
-//        }
+        }else{
+            response.sendRedirect(request.getContextPath() + "/err");
+            return false;
+        }
     }
 
     @Override

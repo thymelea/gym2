@@ -1,4 +1,5 @@
 import com.example.gym2.dao.RedisDao;
+import com.example.gym2.nettyDemo.server.NettyServer;
 import  redis.clients.jedis.Jedis;
 
 /**
@@ -15,10 +16,11 @@ public class Trsrt {
         return jedis ;
     }
     public static void main(String[] args){
-        Jedis j = Trsrt.getRedis() ;
-        String output ;
-        j.set( "hello", "world" ) ;
-        output = j.get( "hello") ;
-        System. out.println(output) ;
+//        Jedis j = Trsrt.getRedis() ;
+//        String output ;
+//        j.set( "hello", "world" ) ;
+//        output = j.get( "hello") ;
+//        System. out.println(output) ;
+        new NettyServer(8699).run();
     }
 }
